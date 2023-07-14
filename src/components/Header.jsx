@@ -14,7 +14,7 @@ export default function Header() {
     dispatch({ type: 'LOGOUT' });
   };
   return (
-    <header className="flex justify-between  h-12 items-center min-w-full laptop:min-w-[1240px] sticky top-0">
+    <header className="flex justify-between  h-12 items-center min-w-full laptop:min-w-[1240px] sticky top-0 bg-white">
       <span className="ml-4 text-xl font-bold">SHOPPY</span>
       <div className="flex gap-3 mr-4 items-center">
         <button className="text-sm font-bold">Products</button>
