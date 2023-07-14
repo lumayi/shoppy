@@ -29,7 +29,7 @@ export const login = () =>
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
-      console.log(errorCode);
+      return { errorCode, errorMessage, email, credential };
     });
 
 export const logout = () =>
