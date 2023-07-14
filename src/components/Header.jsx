@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AiOutlineShoppingCart, AiOutlineFileAdd } from 'react-icons/ai';
 import { login, logout } from '../api/login/auth';
 import { UserContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const { userState, dispatch } = useContext(UserContext);
@@ -13,6 +14,7 @@ export default function Header() {
     logout();
     dispatch({ type: 'LOGOUT' });
   };
+  const navigate = useNavigate();
   return (
     <header className="flex justify-between  h-12 items-center min-w-full laptop:min-w-[1240px] sticky top-0 bg-white">
       <span className="ml-4 text-xl font-bold">SHOPPY</span>
@@ -25,7 +27,7 @@ export default function Header() {
           </div>
         </button>
         {userState.user?.uid === 'ZmyIeTpVV6WPPICoMjjfRAt2g9e2' && (
-          <button type="button">
+          <button type="button" onClick={() => navigate('/register')}>
             <AiOutlineFileAdd className="text-2xl" />
           </button>
         )}
