@@ -12,7 +12,7 @@ export default function Home() {
       <div className="flex justify-center">
         <div className="grid grid-cols-2 desktop:grid-cols-4 gap-4">
           <div>
-            <img src="/image/1.webp" />
+            <img src="/image/1.webp" alt="productImage" />
             <div className="flex justify-between">
               <h1>Pink Hoody</h1>
               <p>59,000원</p>
@@ -20,7 +20,7 @@ export default function Home() {
             <p>여성</p>
           </div>
           <div>
-            <img src="/image/1.webp" />
+            <img src="/image/1.webp" alt="productImage" />
             <div className="flex justify-between">
               <h1>Pink Hoody</h1>
               <p>59,000원</p>
@@ -28,7 +28,7 @@ export default function Home() {
             <p>여성</p>
           </div>
           <div>
-            <img src="/image/1.webp" />
+            <img src="/image/1.webp" alt="productImage" />
             <div className="flex justify-between">
               <h1>Pink Hoody</h1>
               <p>59,000원</p>
@@ -36,7 +36,7 @@ export default function Home() {
             <p>여성</p>
           </div>
           <div>
-            <img src="/image/1.webp" />
+            <img src="/image/1.webp" alt="productImage" />
             <div className="flex justify-between">
               <h1>Pink Hoody</h1>
               <p>59,000원</p>
@@ -44,7 +44,7 @@ export default function Home() {
             <p>여성</p>
           </div>
           <div>
-            <img src="/image/1.webp" />
+            <img src="/image/1.webp" alt="productImage" />
             <div className="flex justify-between">
               <h1>Pink Hoody</h1>
               <p>59,000원</p>

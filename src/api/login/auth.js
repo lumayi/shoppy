@@ -3,7 +3,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
-  onAuthStateChanged,
 } from 'firebase/auth';
 import { app } from '../firebase.config';
 const provider = new GoogleAuthProvider();
