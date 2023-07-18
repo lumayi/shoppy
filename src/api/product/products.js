@@ -1,7 +1,9 @@
-import { Cloudinary } from '@cloudinary/url-gen';
 import axios from 'axios';
+import { getDatabase, ref, set, get, child } from 'firebase/database';
+import { v4 as uuidv4 } from 'uuid';
+const db = getDatabase();
 
-export const uploadImage = (data, options) => {
+export const uploadImage = (data) => {
   return axios
     .post(
       `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -9,4 +11,38 @@ export const uploadImage = (data, options) => {
     )
     .then((res) => res.data)
     .catch((error) => console.log(error));
+};
+
+export const registerProduct = ({
+  imageUrl,
+  title,
+  desc,
+  price,
+  gender,
+  options,
+}) => {
+  const productId = uuidv4();
+  set(ref(db, 'products/' + productId), {
+    title,
+    desc,
+    price,
+    gender,
+    options,
+    imageUrl,
+  });
+};
+
+export const getProducts = () => {
+  const dbRef = ref(db);
+  return get(child(dbRef, `products/`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log('No data available');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };

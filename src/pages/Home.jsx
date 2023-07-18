@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getProducts } from '../api/product/products';
 
 export default function Home() {
+  const [products, setProducts] = useState();
+  const loadProducts = async () => await getProducts();
+  useEffect(() => {
+    const items = loadProducts();
+    console.log(items);
+    setProducts(items);
+  }, []);
   return (
     <section className="flex flex-col min-w-full desktop:max-w-[1240px] desktop:min-w-[1240px] gap-4">
       <div className="flex flex-col justify-center items-center p-10 h-56 bg-gradient-to-r from-purple-300 to-pink-500">
@@ -11,46 +19,17 @@ export default function Home() {
       </div>
       <div className="flex justify-center">
         <div className="grid grid-cols-2 desktop:grid-cols-4 gap-4">
-          <div>
-            <img src="/image/1.webp" alt="productImage" />
-            <div className="flex justify-between">
-              <h1>Pink Hoody</h1>
-              <p>59,000원</p>
-            </div>
-            <p>여성</p>
-          </div>
-          <div>
-            <img src="/image/1.webp" alt="productImage" />
-            <div className="flex justify-between">
-              <h1>Pink Hoody</h1>
-              <p>59,000원</p>
-            </div>
-            <p>여성</p>
-          </div>
-          <div>
-            <img src="/image/1.webp" alt="productImage" />
-            <div className="flex justify-between">
-              <h1>Pink Hoody</h1>
-              <p>59,000원</p>
-            </div>
-            <p>여성</p>
-          </div>
-          <div>
-            <img src="/image/1.webp" alt="productImage" />
-            <div className="flex justify-between">
-              <h1>Pink Hoody</h1>
-              <p>59,000원</p>
-            </div>
-            <p>여성</p>
-          </div>
-          <div>
-            <img src="/image/1.webp" alt="productImage" />
-            <div className="flex justify-between">
-              <h1>Pink Hoody</h1>
-              <p>59,000원</p>
-            </div>
-            <p>여성</p>
-          </div>
+          {products &&
+            Object.values(products).map((product) => (
+              <div>
+                <img src={product.imageUrl} alt="productImage" />
+                <div className="flex justify-between">
+                  <h1>{product.title}</h1>
+                  <p>{product.price}원</p>
+                </div>
+                <p>{product.gender}</p>
+              </div>
+            ))}
         </div>
       </div>
     </section>

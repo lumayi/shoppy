@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { uploadImage } from '../api/product/products';
+import { registerProduct, uploadImage } from '../api/product/products';
 
 export default function Register() {
   const { userState } = useContext(UserContext);
@@ -12,34 +12,43 @@ export default function Register() {
     }
   }, [userState.user?.uid, navigate]);
   const [inputs, setInputs] = useState({});
-  const { title, price, desc, gender, options, imageFile, fileUrl } = inputs;
+  const { title, price, desc, gender, options, imageFile } = inputs;
+  const fileRef = useRef(null);
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    const data = new FormData();
-    data.append('file', file);
-    data.append(
-      'upload_preset',
-      process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-    );
-    data.append('cloud_name', process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
-    data.append('folder', 'Cloudinary-React');
-    const { secure_url } = uploadImage(data);
-    setInputs((prev) => ({ ...prev, fileUrl: secure_url }));
-
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () =>
       setInputs((prev) => ({ ...prev, imageFile: reader.result }));
   };
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
+      const data = new FormData();
+      data.append('file', fileRef.current.files[0]);
+      data.append(
+        'upload_preset',
+        process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+      );
+      data.append('cloud_name', process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
+      data.append('folder', 'Cloudinary-React');
+      const { secure_url } = await uploadImage(data);
+
+      await registerProduct({
+        title,
+        price,
+        desc,
+        gender,
+        options,
+        imageUrl: secure_url,
+      });
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <section className="flex flex-col items-center desktop:min-w-[1240px] desktop:max-w-[1240px] mt-10">
-      <form className="flex flex-col gap-2 w-1/2">
+      <form className="flex flex-col gap-2 w-1/2" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="photo">사진등록</label>
           {imageFile && (
@@ -51,6 +60,7 @@ export default function Register() {
             placeholder="사진등록"
             className="border py-5 w-full indent-4 border-pink-300 rounded outline-none"
             onChange={(e) => handleImageUpload(e)}
+            ref={fileRef}
           />
         </div>
         <div>
