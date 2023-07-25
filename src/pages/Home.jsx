@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../api/product/products';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const [products, setProducts] = useState();
-  const loadProducts = async () => await getProducts();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const items = loadProducts();
-    console.log(items);
-    setProducts(items);
+    const loadProducts = async () => {
+      const items = await getProducts();
+      setProducts(items);
+    };
+    loadProducts();
   }, []);
   return (
     <section className="flex flex-col min-w-full desktop:max-w-[1240px] desktop:min-w-[1240px] gap-4">
@@ -20,8 +24,14 @@ export default function Home() {
       <div className="flex justify-center">
         <div className="grid grid-cols-2 desktop:grid-cols-4 gap-4">
           {products &&
-            Object.values(products).map((product) => (
-              <div>
+            products.map((product) => (
+              <div
+                key={product.id}
+                className="hover:cursor-pointer"
+                onClick={() =>
+                  navigate(`/products/${product.id}`, { state: { product } })
+                }
+              >
                 <img src={product.imageUrl} alt="productImage" />
                 <div className="flex justify-between">
                   <h1>{product.title}</h1>

@@ -37,7 +37,12 @@ export const getProducts = () => {
   return get(child(dbRef, `products/`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        return snapshot.val();
+        const data = snapshot.val();
+        const items = Object.keys(data).map((value) => ({
+          id: value,
+          ...data[value],
+        }));
+        return items;
       } else {
         console.log('No data available');
       }
