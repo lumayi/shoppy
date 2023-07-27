@@ -3,9 +3,11 @@ import { AiOutlineShoppingCart, AiOutlineFileAdd } from 'react-icons/ai';
 import { login, logout } from '../api/login/auth';
 import { UserContext } from '../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCartContext } from '../context/CartContext';
 
 export default function Header() {
   const { userState, dispatch } = useContext(UserContext);
+  const { cartState } = useCartContext();
   const handleLogin = async () => {
     const { user } = await login();
     dispatch({ type: 'LOGIN', payload: user });
@@ -25,7 +27,7 @@ export default function Header() {
         <button type="button" className="relative">
           <AiOutlineShoppingCart className="text-2xl" />
           <div className="bg-red-700 absolute top-[-5px] right-[-5px] text-white rounded-full text-xs w-4 h-4">
-            1
+            {Object.keys(cartState).length}
           </div>
         </button>
         {userState.user?.uid === process.env.REACT_APP_MASTER_UID && (

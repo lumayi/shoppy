@@ -3,12 +3,13 @@ import { createContext, useContext, useReducer, useState } from 'react';
 const CartContext = createContext();
 
 const cartReducer = (state, { type, payload }) => {
-  const { product, qunatity } = payload;
   switch (type) {
+    case 'LOADITEMS':
+      return { ...payload };
     case 'UPDATE':
-      return { ...state, product: qunatity };
+      return { ...state, ...payload };
     case 'WITHDRAW':
-      delete state[product];
+      delete state[payload.id];
       return { ...state };
     default:
       throw Error(`Unknown Type Error: ${type}`);
@@ -18,7 +19,8 @@ const cartReducer = (state, { type, payload }) => {
 export const CartContextProvider = ({ children }) => {
   const [cartState, dispatch] = useReducer(cartReducer, {});
   useState(() => {
-    const cartStorage = JSON.parse(localStorage.getItem('cart'));
+    const cartStorage = JSON.parse(localStorage.getItem('cart')) || {};
+    dispatch({ type: 'LOADITEMS', payload: cartStorage });
   }, []);
   return (
     <CartContext.Provider value={{ cartState, dispatch }}>
