@@ -2,11 +2,10 @@
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyD_VIqlBxDK4_-o4dh-L10zDv5sDrEC9hI',
-  authDomain: 'shoppy-df0fb.firebaseapp.com',
-  databaseURL:
-    'https://shoppy-df0fb-default-rtdb.asia-southeast1.firebasedatabase.app',
-  projectId: 'shoppy-df0fb',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
