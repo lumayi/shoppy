@@ -5,6 +5,8 @@ import { UserContext } from '../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCartContext } from '../context/CartContext';
 import CartStatus from './CartStatus';
+import User from './User';
+import Button from './ui/Button';
 
 export default function Header() {
   const { userState, dispatch } = useContext(UserContext);
@@ -23,32 +25,9 @@ export default function Header() {
             <AiOutlineFileAdd className="text-2xl" />
           </button>
         )}
-
-        {userState.authenticated ? (
-          <>
-            <div className="flex gap-1 items-center">
-              <img
-                src={userState.user.photoURL || '/image/default-image.png'}
-                alt="profile"
-                className="w-7 rounded-full"
-              />
-              <p className="text-sm">{userState.user.displayName}</p>
-            </div>
-            <button
-              className="bg-red-500 text-white text-sm py-1 px-2 rounded font-bold"
-              onClick={logout}
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <button
-            className="bg-red-500 text-white text-sm py-1 px-2 rounded"
-            onClick={login}
-          >
-            Login
-          </button>
-        )}
+        {userState.authenticated && <User user={userState.user} />}
+        {userState.authenticated && <Button onClick={logout} text="로그아웃" />}
+        {!userState.authenticated && <Button onClick={login} text="로그인" />}
       </nav>
     </header>
   );
