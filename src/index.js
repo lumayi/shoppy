@@ -4,9 +4,9 @@ import './index.css';
 import App from './App';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
-import Register from './pages/Register';
 import Detail from './pages/Detail';
 import Cart from './pages/Cart';
+import NewProduct from './pages/NewProduct';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'register', element: <Register /> },
+      { path: 'products/new', element: <NewProduct /> },
       { path: 'products/:productId', element: <Detail /> },
       { path: 'cart', element: <Cart /> },
     ],

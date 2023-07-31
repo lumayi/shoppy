@@ -3,7 +3,7 @@ import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { registerProduct, uploadImage } from '../api/product/products';
 
-export default function Register() {
+export default function NewProduct() {
   const { userState } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {

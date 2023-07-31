@@ -27,7 +27,7 @@ export default function Header() {
         <button className="text-sm font-bold">Products</button>
         <CartStatus />
         {userState.user?.uid === process.env.REACT_APP_MASTER_UID && (
-          <button type="button" onClick={() => navigate('/register')}>
+          <button type="button" onClick={() => navigate('/products/new')}>
             <AiOutlineFileAdd className="text-2xl" />
           </button>
         )}
