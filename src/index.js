@@ -15,7 +15,14 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'products/new', element: <NewProduct /> },
+      {
+        path: 'products/new',
+        element: (
+          <PrivateRouter>
+            <NewProduct isAdmin />
+          </PrivateRouter>
+        ),
+      },
       { path: 'products/:productId', element: <Detail /> },
       {
         path: 'cart',

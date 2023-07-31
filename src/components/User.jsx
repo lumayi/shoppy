@@ -6,7 +6,7 @@ export default function User({ user: { photoURL, displayName } }) {
       <img
         src={photoURL || '/image/default-image.png'}
         alt={displayName}
-        className="w-7 rounded-full"
+        className="w-7 rounded-full shrink-0"
       />
       <p className="text-sm hidden md:block">{displayName}</p>
     </div>

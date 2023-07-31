@@ -4,13 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { registerProduct, uploadImage } from '../api/product/products';
 
 export default function NewProduct() {
-  const { userState } = useContext(UserContext);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (userState.user?.uid !== process.env.REACT_APP_MASTER_UID) {
-      navigate('/');
-    }
-  }, [userState.user?.uid, navigate]);
   const [inputs, setInputs] = useState({});
   const { title, price, desc, gender, options, imageFile } = inputs;
   const fileRef = useRef(null);

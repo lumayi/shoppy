@@ -18,11 +18,12 @@ export default function Header() {
         SHOPPY
       </Link>
       <nav className="flex gap-3 mr-4 items-center">
-        <button className="text-sm font-bold">Products</button>
-        <CartStatus
-          cartStatus={Object.keys(cartState).length}
-          onClick={() => navigate('/cart')}
-        />
+        {userState.authenticated && (
+          <CartStatus
+            cartStatus={Object.keys(cartState).length}
+            onClick={() => navigate('/cart')}
+          />
+        )}
         {userState.user?.isAdmin && (
           <button type="button" onClick={() => navigate('/products/new')}>
             <AiOutlineFileAdd className="text-2xl" />
