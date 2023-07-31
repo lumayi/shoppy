@@ -23,7 +23,7 @@ export default function Header() {
           cartStatus={Object.keys(cartState).length}
           onClick={() => navigate('/cart')}
         />
-        {userState.user?.uid === process.env.REACT_APP_MASTER_UID && (
+        {userState.user?.isAdmin && (
           <button type="button" onClick={() => navigate('/products/new')}>
             <AiOutlineFileAdd className="text-2xl" />
           </button>
