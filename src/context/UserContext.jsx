@@ -1,5 +1,6 @@
 import { createContext, useReducer, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onUserStateChange } from '../api/login/auth';
 export const UserContext = createContext();
 
 const userReducer = (state, { type, payload }) => {
@@ -22,9 +23,8 @@ export const UserContextProvider = ({ children }) => {
     user: null,
   });
   useState(() => {
-    const auth = getAuth();
     try {
-      onAuthStateChanged(auth, (user) => {
+      onUserStateChange((user) => {
         if (user) {
           dispatch({ type: 'LOGIN', payload: user });
         } else {

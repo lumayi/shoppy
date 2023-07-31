@@ -9,14 +9,6 @@ import CartStatus from './CartStatus';
 export default function Header() {
   const { userState, dispatch } = useContext(UserContext);
   const { cartState } = useCartContext();
-  const handleLogin = async () => {
-    const { user } = await login();
-    dispatch({ type: 'LOGIN', payload: user });
-  };
-  const handleLogout = async () => {
-    logout();
-    dispatch({ type: 'LOGOUT' });
-  };
   const navigate = useNavigate();
   return (
     <header className="flex justify-between  h-12 items-center sticky top-0 bg-white">
@@ -44,7 +36,7 @@ export default function Header() {
             </div>
             <button
               className="bg-red-500 text-white text-sm py-1 px-2 rounded font-bold"
-              onClick={handleLogout}
+              onClick={logout}
             >
               Logout
             </button>
@@ -52,7 +44,7 @@ export default function Header() {
         ) : (
           <button
             className="bg-red-500 text-white text-sm py-1 px-2 rounded"
-            onClick={handleLogin}
+            onClick={login}
           >
             Login
           </button>
