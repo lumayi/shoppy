@@ -9,7 +9,7 @@ import User from './User';
 import Button from './ui/Button';
 
 export default function Header() {
-  const { userState, dispatch } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
   const { cartState } = useCartContext();
   const navigate = useNavigate();
   return (
@@ -19,7 +19,10 @@ export default function Header() {
       </Link>
       <nav className="flex gap-3 mr-4 items-center">
         <button className="text-sm font-bold">Products</button>
-        <CartStatus />
+        <CartStatus
+          cartStatus={Object.keys(cartState).length}
+          onClick={() => navigate('/cart')}
+        />
         {userState.user?.uid === process.env.REACT_APP_MASTER_UID && (
           <button type="button" onClick={() => navigate('/products/new')}>
             <AiOutlineFileAdd className="text-2xl" />
