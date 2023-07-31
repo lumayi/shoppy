@@ -23,7 +23,7 @@ export default function Header() {
       <Link to="/" className="ml-4 text-xl font-bold">
         SHOPPY
       </Link>
-      <div className="flex gap-3 mr-4 items-center">
+      <nav className="flex gap-3 mr-4 items-center">
         <button className="text-sm font-bold">Products</button>
         <CartStatus />
         {userState.user?.uid === process.env.REACT_APP_MASTER_UID && (
@@ -57,7 +57,7 @@ export default function Header() {
             Login
           </button>
         )}
-      </div>
+      </nav>
     </header>
   );
 }
