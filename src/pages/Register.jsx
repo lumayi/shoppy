@@ -52,7 +52,12 @@ export default function Register() {
         <div>
           <label htmlFor="photo">사진등록</label>
           {imageFile && (
-            <img id="preview" src={imageFile} alt="preview" className="w-44" />
+            <img
+              id="preview"
+              src={imageFile}
+              alt="preview"
+              className="w-44 mx-auto"
+            />
           )}
           <input
             name="photo"
@@ -102,9 +107,10 @@ export default function Register() {
             name="desc"
             placeholder="설명"
             className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, desc: e.target.value }))
-            }
+            onChange={(e) => {
+              e.preventDefault();
+              setInputs((prev) => ({ ...prev, desc: e.target.value }));
+            }}
           />
         </div>
         <div>

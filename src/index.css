@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #root {
-  @apply min-h-screen w-screen flex flex-col items-center;
+  @apply min-h-screen max-w-screen-2xl;
 }
 body {
   margin: 0;
@@ -12,6 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply flex flex-col items-center;
 }
 
 code {

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { AiOutlineShoppingCart, AiOutlineFileAdd } from 'react-icons/ai';
+import { AiOutlineFileAdd } from 'react-icons/ai';
 import { login, logout } from '../api/login/auth';
 import { UserContext } from '../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCartContext } from '../context/CartContext';
+import CartStatus from './CartStatus';
 
 export default function Header() {
   const { userState, dispatch } = useContext(UserContext);
@@ -18,18 +19,13 @@ export default function Header() {
   };
   const navigate = useNavigate();
   return (
-    <header className="flex justify-between  h-12 items-center min-w-full laptop:min-w-[1240px] sticky top-0 bg-white">
+    <header className="flex justify-between  h-12 items-center sticky top-0 bg-white">
       <Link to="/" className="ml-4 text-xl font-bold">
         SHOPPY
       </Link>
       <div className="flex gap-3 mr-4 items-center">
         <button className="text-sm font-bold">Products</button>
-        <button type="button" className="relative">
-          <AiOutlineShoppingCart className="text-2xl" />
-          <div className="bg-red-700 absolute top-[-5px] right-[-5px] text-white rounded-full text-xs w-4 h-4">
-            {Object.keys(cartState).length}
-          </div>
-        </button>
+        <CartStatus />
         {userState.user?.uid === process.env.REACT_APP_MASTER_UID && (
           <button type="button" onClick={() => navigate('/register')}>
             <AiOutlineFileAdd className="text-2xl" />

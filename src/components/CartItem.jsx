@@ -20,7 +20,8 @@ export default function CartItem({ item }) {
             type="button"
             onClick={() => {
               setQuan((prev) => {
-                if (prev <= 1) return 1;
+                if (prev <= 1)
+                  return dispatch({ type: 'WITHDRAW', payload: { id: item } });
                 else return prev - 1;
               });
               dispatch({
