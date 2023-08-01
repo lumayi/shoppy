@@ -16,9 +16,9 @@ export default function Home() {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col justify-center items-center p-10 h-56 bg-gradient-to-r from-purple-300 to-pink-500">
-        <span className="text-3xl font-bold text-white">SHOP WITH US</span>
+        <span className="text-3xl font-bold text-white">Gift Funding MoA</span>
         <span className="text-white opacity-60">
-          expand your styling experience
+          expand your present experience
         </span>
       </div>
       <div className="flex justify-center">

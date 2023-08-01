@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className="flex justify-between  h-12 items-center sticky top-0 bg-white">
       <Link to="/" className="ml-4 text-xl font-bold">
-        SHOPPY
+        MoA
       </Link>
       <nav className="flex gap-3 mr-4 items-center">
         {userState.authenticated && (
