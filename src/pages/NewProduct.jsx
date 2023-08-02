@@ -5,28 +5,22 @@ import { registerProduct, uploadImage } from '../api/product/products';
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
-  const { title, price, desc, gender, options, imageFile } = inputs;
+  const [loadingText, setLoadingText] = useState('');
+  const { title, price, desc, gender, options, file } = inputs;
   const fileRef = useRef(null);
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () =>
-      setInputs((prev) => ({ ...prev, imageFile: reader.result }));
+  const handleChange = (e) => {
+    const { name, files, value } = e.target;
+    if (name === 'file') {
+      setInputs((prev) => ({ ...prev, file: files && files[0] }));
+      return;
+    }
+    setInputs((prev) => ({ ...prev, [name]: value }));
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoadingText('등록중입니다😊');
     try {
-      const data = new FormData();
-      data.append('file', fileRef.current.files[0]);
-      data.append(
-        'upload_preset',
-        process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-      );
-      data.append('cloud_name', process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
-      data.append('folder', 'Cloudinary-React');
-      const { secure_url } = await uploadImage(data);
-
+      const { secure_url } = await uploadImage(file);
       await registerProduct({
         title,
         price,
@@ -37,28 +31,32 @@ export default function NewProduct() {
       });
     } catch (error) {
       console.log(error);
+      setLoadingText('등록이 실패했습니다😿');
+    } finally {
+      setLoadingText('등록이 완료되었습니다🐯');
+      setTimeout(() => setLoadingText(''), 4000);
     }
   };
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div>
-          {imageFile && (
+          {file && (
             <img
               id="preview"
-              src={imageFile}
+              src={URL.createObjectURL(file)}
               alt="preview"
               className="w-44 h-44 object-cover mx-auto border-4 border-gray-400"
             />
           )}
-          <label htmlFor="photo">사진등록</label>
+          <label htmlFor="file">사진등록</label>
           <input
-            name="photo"
+            name="file"
             type="file"
             accept="image/*"
             placeholder="사진등록"
             className="border py-5 w-full indent-4 border-pink-300 rounded outline-none"
-            onChange={(e) => handleImageUpload(e)}
+            onChange={handleChange}
             ref={fileRef}
             required
           />
@@ -69,9 +67,7 @@ export default function NewProduct() {
             name="title"
             placeholder="제품명"
             className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, title: e.target.value }))
-            }
+            onChange={handleChange}
             required
           />
         </div>
@@ -81,9 +77,7 @@ export default function NewProduct() {
             name="price"
             placeholder="제품 가격"
             className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, price: e.target.value }))
-            }
+            onChange={handleChange}
             required
           />
         </div>
@@ -93,9 +87,7 @@ export default function NewProduct() {
             name="gender"
             placeholder="성별"
             className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, gender: e.target.value }))
-            }
+            onChange={handleChange}
             required
           />
         </div>
@@ -105,10 +97,7 @@ export default function NewProduct() {
             name="desc"
             placeholder="설명"
             className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
-            onChange={(e) => {
-              e.preventDefault();
-              setInputs((prev) => ({ ...prev, desc: e.target.value }));
-            }}
+            onChange={handleChange}
             required
           />
         </div>
@@ -127,6 +116,7 @@ export default function NewProduct() {
             required
           />
         </div>
+        <p className="mb-2 text-center">{loadingText}</p>
         <button
           type="submit"
           className="bg-pink-500 text-white w-full h-16 font-bold text-lg rounded"
