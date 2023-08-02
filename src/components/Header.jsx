@@ -14,8 +14,9 @@ export default function Header() {
   const navigate = useNavigate();
   return (
     <header className="flex justify-between  h-12 items-center sticky top-0 bg-white">
-      <Link to="/" className="ml-4 text-xl font-bold">
-        MoA
+      <Link to="/" className="ml-4 text-xl font-bold flex gap-1">
+        <span>MoA</span>
+        <img src="/gift.svg" alt="moa-logo" className="w-5" />
       </Link>
       <nav className="flex gap-3 mr-4 items-center">
         {userState.authenticated && (

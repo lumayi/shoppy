@@ -18,7 +18,7 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center p-10 h-56 bg-gradient-to-r from-purple-300 to-pink-500">
         <span className="text-3xl font-bold text-white">Gift Funding MoA</span>
         <span className="text-white opacity-60">
-          expand your present experience
+          모두가 행복한 새로운 선물 경험
         </span>
       </div>
       <div className="flex justify-center">
