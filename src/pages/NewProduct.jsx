@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { UserContext } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
 import { registerProduct, uploadImage } from '../api/product/products';
 
 export default function NewProduct() {
@@ -55,7 +53,6 @@ export default function NewProduct() {
             type="file"
             accept="image/*"
             placeholder="사진등록"
-            className="border py-5 w-full indent-4 border-pink-300 rounded outline-none"
             onChange={handleChange}
             ref={fileRef}
             required
@@ -66,7 +63,6 @@ export default function NewProduct() {
           <input
             name="title"
             placeholder="제품명"
-            className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
             onChange={handleChange}
             required
           />
@@ -76,7 +72,6 @@ export default function NewProduct() {
           <input
             name="price"
             placeholder="제품 가격"
-            className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
             onChange={handleChange}
             required
           />
@@ -86,7 +81,6 @@ export default function NewProduct() {
           <input
             name="gender"
             placeholder="성별"
-            className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
             onChange={handleChange}
             required
           />
@@ -96,7 +90,6 @@ export default function NewProduct() {
           <input
             name="desc"
             placeholder="설명"
-            className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
             onChange={handleChange}
             required
           />
@@ -106,7 +99,6 @@ export default function NewProduct() {
           <input
             name="options"
             placeholder="사이즈 옵션(, 콤마로구분)"
-            className="border py-5 w-full border-pink-300 rounded outline-none indent-4"
             onChange={(e) =>
               setInputs((prev) => ({
                 ...prev,

@@ -19,3 +19,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+input {
+  @apply border py-5 w-full border-pink-300 rounded outline-none indent-4;
+}
