@@ -40,25 +40,27 @@ export default function NewProduct() {
     }
   };
   return (
-    <section className="flex flex-col items-center desktop:min-w-[1240px] desktop:max-w-[1240px] mt-10">
-      <form className="flex flex-col gap-2 w-1/2" onSubmit={handleSubmit}>
+    <section className="flex flex-col items-center justify-center min-h-screen">
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="photo">사진등록</label>
           {imageFile && (
             <img
               id="preview"
               src={imageFile}
               alt="preview"
-              className="w-44 mx-auto"
+              className="w-44 h-44 object-cover mx-auto border-4 border-gray-400"
             />
           )}
+          <label htmlFor="photo">사진등록</label>
           <input
             name="photo"
             type="file"
+            accept="image/*"
             placeholder="사진등록"
             className="border py-5 w-full indent-4 border-pink-300 rounded outline-none"
             onChange={(e) => handleImageUpload(e)}
             ref={fileRef}
+            required
           />
         </div>
         <div>
@@ -70,6 +72,7 @@ export default function NewProduct() {
             onChange={(e) =>
               setInputs((prev) => ({ ...prev, title: e.target.value }))
             }
+            required
           />
         </div>
         <div>
@@ -81,6 +84,7 @@ export default function NewProduct() {
             onChange={(e) =>
               setInputs((prev) => ({ ...prev, price: e.target.value }))
             }
+            required
           />
         </div>
         <div>
@@ -92,6 +96,7 @@ export default function NewProduct() {
             onChange={(e) =>
               setInputs((prev) => ({ ...prev, gender: e.target.value }))
             }
+            required
           />
         </div>
         <div>
@@ -104,6 +109,7 @@ export default function NewProduct() {
               e.preventDefault();
               setInputs((prev) => ({ ...prev, desc: e.target.value }));
             }}
+            required
           />
         </div>
         <div>
@@ -118,6 +124,7 @@ export default function NewProduct() {
                 options: e.target.value.split(','),
               }))
             }
+            required
           />
         </div>
         <button

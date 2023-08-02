@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../api/product/products';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
-  const [products, setProducts] = useState();
   const navigate = useNavigate();
+  const { data: products, isLoading } = useQuery(
+    ['products'],
+    () => getProducts(),
+    { staleTime: 1000 * 60 * 60 }
+  );
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      const items = await getProducts();
-      setProducts(items);
-    };
-    loadProducts();
-  }, []);
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col justify-center items-center p-10 h-56 bg-gradient-to-r from-purple-300 to-pink-500">
