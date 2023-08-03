@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="flex gap-2">
         <span>사업자등록번호: 50-8202-8553</span>
         <span>전화번호: 010-5954-5857</span>
-        <span>이메일: moa.gift.funding@gmail.components</span>
+        <span>이메일: moa.gift.funding@gmail.com</span>
         <span>대표: 이수진</span>
       </div>
 
