@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -7,6 +8,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { getDatabase, ref, set, get } from 'firebase/database';
+import { useNavigate } from 'react-router-dom';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -22,7 +24,14 @@ const auth = getAuth();
 const database = getDatabase(app);
 
 export const login = () => {
-  signInWithPopup(auth, provider).catch(console.error);
+  axios
+    .get(
+      'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google',
+      { withCredentials: true }
+    )
+    .then((res) => console.log(res))
+    .catch((error) => console.log(error));
+  // signInWithPopup(auth, provider).catch(console.error);
 };
 
 export const logout = () => {
