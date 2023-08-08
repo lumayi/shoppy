@@ -1,78 +1,72 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCartContext } from '../context/CartContext';
+import { wonPrice } from '../util';
+import Button from '../components/ui/Button';
+import { UserContext } from '../context/UserContext';
 
 export default function Detail() {
   const {
-    state: { product },
+    state: {
+      product,
+      product: { price, title, desc, imageUrl, gender, options },
+    },
   } = useLocation();
-  const [quantity, setQuantity] = useState(1);
-  const [option, setOption] = useState('');
-  const { price, title, desc, imageUrl, id } = product;
+  const [option, setOption] = useState(options && options[0]);
   const navigate = useNavigate();
-  const { cartState, dispatch } = useCartContext();
+  const { dispatch } = useCartContext();
+  const { userState } = useContext(UserContext);
   const handleSubmit = () => {
-    const cartItem = { [id]: { quantity, price, option, imageUrl, title } };
-    dispatch({ type: 'UPDATE', payload: cartItem });
-    localStorage.setItem('cart', JSON.stringify(cartState));
-    if (
-      window.confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')
-    )
-      navigate('/cart');
+    const cartItem = { ...product, quantity: 1, option };
+    if (userState.user) {
+      dispatch({ type: 'UPDATE', payload: cartItem });
+      if (
+        window.confirm(
+          '장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?'
+        )
+      )
+        return navigate('/cart');
+    } else return alert('로그인이 필요합니다.');
   };
   return (
-    <section className="flex justify-center mt-10 gap-4">
-      <div className="flex-1">
-        <img src={imageUrl} alt="product" />
-      </div>
-      <div className="flex-1 flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <span className="text-xl">{price}원</span>
-        <span className="text-xl">{desc}</span>
-        <label htmlFor="size-options">사이즈</label>
-        <select
-          name="options"
-          id="size-options"
-          className="w-40 border rounded"
-          onChange={(e) => setOption(e.target.value)}
-        >
-          <option value={''}>사이즈 선택</option>
-          {product.options.map((value) => (
-            <option value={value} key={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-        <div className="flex items-center gap-2">
-          <button
-            className="bg-gray-600 text-white w-6 h-6 flex justify-center items-center"
-            type="button"
-            onClick={() =>
-              setQuantity((prev) => {
-                if (prev === 1) return 1;
-                else return prev - 1;
-              })
-            }
-          >
-            -
-          </button>
-          <span>{quantity}</span>
-          <button
-            className="bg-gray-600 text-white w-6 h-6 flex justify-center items-center"
-            type="button"
-            onClick={() => setQuantity((prev) => prev + 1)}
-          >
-            +
-          </button>
-          <button
-            type="button"
+    <>
+      <p className="mt-4 mx-10 text-sm">{gender}</p>
+      <section className="flex flex-col md:flex-row gap-5 px-10 mt-4">
+        <div className="basis-1/2">
+          <img src={imageUrl} alt={title} className="w-full" />
+        </div>
+        <div className="basis-1/2 flex flex-col gap-3 border-t-2 border-black px-4">
+          <h1 className="font-semibold text-xl mt-4">{title}</h1>
+          <div className="flex items-center border-b border-black border-opacity-10">
+            <span className="font-bold text-xl">{wonPrice(price)}</span>
+            <span>원</span>
+          </div>
+          <span className="text-sm">{desc}</span>
+          <div className="flex items-center gap-2">
+            <label htmlFor="size-options" className="text-sm">
+              사이즈
+            </label>
+            <select
+              name="options"
+              id="size-options"
+              className="w-40 border rounded outline-none"
+              onChange={(e) => setOption(e.target.value)}
+            >
+              {options &&
+                options.map((value) => (
+                  <option value={value} key={value}>
+                    {value}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <Button
+            text="장바구니 담기"
             className="bg-pink-500 text-white rounded px-2"
             onClick={handleSubmit}
-          >
-            장바구니에 추가
-          </button>
+          />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

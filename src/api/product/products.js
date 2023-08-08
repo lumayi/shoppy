@@ -25,6 +25,7 @@ export const registerProduct = ({
   price,
   gender,
   options,
+  company,
 }) => {
   const productId = uuidv4();
   set(ref(db, 'products/' + productId), {
@@ -34,11 +35,12 @@ export const registerProduct = ({
     gender,
     options,
     imageUrl,
+    company,
   });
 };
 
+const dbRef = ref(db);
 export const getProducts = () => {
-  const dbRef = ref(db);
   return get(child(dbRef, `products/`))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -56,3 +58,22 @@ export const getProducts = () => {
       console.error(error);
     });
 };
+
+export function getCartProducts() {
+  return get(child(dbRef, `cart/`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log('No data available');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export function addCart(product) {
+  const cartId = uuidv4();
+  set(ref(db, `cart/${cartId}`), product).then((res) => console.log(res));
+}

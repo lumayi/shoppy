@@ -12,13 +12,27 @@ export default function Header() {
   const { userState } = useContext(UserContext);
   const { cartState } = useCartContext();
   const navigate = useNavigate();
+
   return (
-    <header className="flex justify-between  h-12 items-center sticky top-0 bg-white">
-      <Link to="/" className="ml-4 text-xl font-bold flex gap-1">
+    <header className="flex justify-between h-14 items-center sticky top-0 z-10 bg-stone-200 px-2 border-b-2 border-gray-300">
+      <Link
+        to="/"
+        className="text-2xl font-bold flex items-center gap-1 outline-none"
+      >
         <span>MoA</span>
-        <img src="/gift.svg" alt="moa-logo" className="w-5" />
+        <img
+          src="https://res.cloudinary.com/dkjk8h8zd/image/upload/v1691495130/present-unscreen_gd0ziu.gif"
+          alt="moa-logo"
+          className="w-9"
+        />
       </Link>
-      <nav className="flex gap-3 mr-4 items-center">
+      <nav className="flex gap-3 items-center">
+        <span
+          className="font-semibold hover:cursor-pointer hover:opacity-60"
+          onClick={() => navigate('/products')}
+        >
+          PRODUCTS
+        </span>
         {userState.authenticated && (
           <CartStatus
             cartStatus={Object.keys(cartState).length}

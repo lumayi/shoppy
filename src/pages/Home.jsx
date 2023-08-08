@@ -1,40 +1,35 @@
 import React from 'react';
 import { getProducts } from '../api/product/products';
-import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import ProductCard from '../components/ProductCard';
 
 export default function Home() {
-  const navigate = useNavigate();
   const { data: products } = useQuery(['products'], () => getProducts(), {
     staleTime: 1000 * 60 * 60,
   });
 
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex flex-col justify-center items-center p-10 h-56 bg-gradient-to-r from-purple-300 to-pink-500">
-        <span className="text-3xl font-bold text-white">Gift Funding MoA</span>
-        <span className="text-white opacity-60">
-          모두가 행복한 새로운 선물 경험
-        </span>
+      <div className="flex flex-col justify-center items-center relative">
+        <img
+          src="https://res.cloudinary.com/dkjk8h8zd/image/upload/v1691495289/banner_ycjool.jpg"
+          alt="banner"
+          className="bg-image w-full object-cover h-96 bg-cover"
+        />
+        <div className="flex flex-col absolute top-36 text-center">
+          <span className="text-3xl font-bold text-white">
+            Gift Funding MoA
+          </span>
+          <span className="text-white opacity-60">
+            모두가 행복한 새로운 선물 경험
+          </span>
+        </div>
       </div>
       <div className="flex justify-center">
         <div className="grid grid-cols-2 desktop:grid-cols-4 gap-4">
           {products &&
             products.map((product) => (
-              <div
-                key={product.id}
-                className="hover:cursor-pointer"
-                onClick={() =>
-                  navigate(`/products/${product.id}`, { state: { product } })
-                }
-              >
-                <img src={product.imageUrl} alt="productImage" />
-                <div className="flex justify-between">
-                  <h1>{product.title}</h1>
-                  <p>{product.price}원</p>
-                </div>
-                <p>{product.gender}</p>
-              </div>
+              <ProductCard product={product} key={product.id} />
             ))}
         </div>
       </div>

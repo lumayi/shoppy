@@ -11,6 +11,9 @@ module.exports = {
       flexBasis: {
         '1/4-gap-4': 'calc(25% - 2rem)',
       },
+      backgroundImage: {
+        banner: `url('../public/image/present.jpg')`,
+      },
     },
   },
   plugins: [],

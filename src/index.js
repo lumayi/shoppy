@@ -8,6 +8,8 @@ import Detail from './pages/Detail';
 import Cart from './pages/Cart';
 import NewProduct from './pages/NewProduct';
 import PrivateRouter from './router/PrivateRouter';
+import Auth from './pages/Auth';
+import Products from './pages/Products';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
+      { path: 'products', element: <Products /> },
       {
         path: 'products/new',
         element: (
@@ -32,6 +35,7 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
+      { path: 'auth/:userId/:accessToken', element: <Auth /> },
     ],
   },
 ]);

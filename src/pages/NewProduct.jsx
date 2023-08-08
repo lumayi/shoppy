@@ -4,7 +4,7 @@ import { registerProduct, uploadImage } from '../api/product/products';
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
   const [loadingText, setLoadingText] = useState('');
-  const { title, price, desc, gender, options, file } = inputs;
+  const { title, price, desc, gender, options, file, company } = inputs;
   const fileRef = useRef(null);
   const handleChange = (e) => {
     const { name, files, value } = e.target;
@@ -25,6 +25,7 @@ export default function NewProduct() {
         desc,
         gender,
         options,
+        company,
         imageUrl: secure_url,
       });
     } catch (error) {
@@ -55,6 +56,15 @@ export default function NewProduct() {
             placeholder="사진등록"
             onChange={handleChange}
             ref={fileRef}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="title">회사명</label>
+          <input
+            name="company"
+            placeholder="회사명"
+            onChange={handleChange}
             required
           />
         </div>

@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, useState } from 'react';
+import { addCart } from '../api/product/products';
 
 const CartContext = createContext();
 
@@ -7,6 +8,7 @@ const cartReducer = (state, { type, payload }) => {
     case 'LOADITEMS':
       return { ...payload };
     case 'UPDATE':
+      addCart(payload);
       return { ...state, ...payload };
     case 'WITHDRAW':
       delete state[payload.id];

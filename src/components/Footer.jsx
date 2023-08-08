@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-200 flex flex-col p-4 mt-10 text-xs">
+    <footer className="bg-stone-300 flex flex-col p-4 mt-10 text-xs">
       <span className="mb-4 font-semibold text-sm">MoA, 선물펀딩플랫폼</span>
       <div className="flex gap-2">
         <span>상호명: 모아(MoA)</span>
@@ -14,7 +14,6 @@ export default function Footer() {
         <span>이메일: moa.gift.funding@gmail.com</span>
         <span>대표: 이수진</span>
       </div>
-
       <span>
         모아는 통신판매의 당사자가 아닌 통신판매중개자로서 상품, 상품정보,
         거래에 대한 책임이 제한될 수 있으므로, 각 상품 페이지에서 구체적인
