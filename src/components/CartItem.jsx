@@ -4,6 +4,8 @@ import { FaTrash } from 'react-icons/fa';
 import { deleteCartProduct, updateCartProduct } from '../api/product/products';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+const buttonStyle =
+  'bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105';
 export default function CartItem({ item }) {
   const { quantity, price, imageUrl, option, title, id } = item;
   const queryClient = new useQueryClient();
@@ -35,7 +37,7 @@ export default function CartItem({ item }) {
       <div className="flex gap-4 mr-4 items-center">
         <div className="flex gap-2">
           <button
-            className="bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105"
+            className={buttonStyle}
             type="button"
             onClick={() => {
               if (quantity < 2) return;
@@ -46,7 +48,7 @@ export default function CartItem({ item }) {
           </button>
           <span>{quantity}</span>
           <button
-            className="bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105"
+            className={buttonStyle}
             type="button"
             onClick={addProduct.mutate}
           >

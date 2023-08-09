@@ -15,17 +15,19 @@ export default function Cart() {
     );
   return (
     <>
-      <section className="flex flex-col gap-4 m-10 bg-stone-100 rounded-lg">
-        <ul className="px-6 py-5 flex flex-col gap-4">
-          {!cartItems && '장바구니가 비어있어요🛒'}
-          {cartItems &&
-            Object.values(cartItems).map((item) => (
-              <li key={item.id}>
-                <CartItem item={item} />
-              </li>
-            ))}
-        </ul>
-      </section>
+      <div>
+        <section className="flex flex-col gap-4 m-10 bg-stone-100 rounded-lg">
+          <ul className="px-6 py-5 flex flex-col gap-4">
+            {!cartItems && '장바구니가 비어있어요🛒'}
+            {cartItems &&
+              Object.values(cartItems).map((item) => (
+                <li key={item.id}>
+                  <CartItem item={item} />
+                </li>
+              ))}
+          </ul>
+        </section>
+      </div>
       <div className="flex gap-5 mx-10 bg-stone-100 p-10 rounded-t-lg justify-between items-center">
         <Price text="상품금액" price={total ? total : 0} />
         <span className="font-bold text-3xl">+</span>
