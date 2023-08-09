@@ -49,7 +49,7 @@ export default function Detail() {
             <select
               name="options"
               id="size-options"
-              className="w-40 border rounded outline-none"
+              className="w-fit border rounded outline-none bg-transparent border-cyan-700 px-2 py-1"
               onChange={(e) => setOption(e.target.value)}
             >
               {options &&

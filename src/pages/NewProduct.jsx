@@ -121,7 +121,7 @@ export default function NewProduct() {
         <p className="mb-2 text-center">{loadingText}</p>
         <button
           type="submit"
-          className="bg-pink-500 text-white w-full h-16 font-bold text-lg rounded"
+          className="bg-cyan-700 text-white w-full h-16 font-bold text-lg rounded"
         >
           등록하기
         </button>

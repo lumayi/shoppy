@@ -4,14 +4,9 @@ import CartItem from '../components/CartItem';
 import { useQuery } from '@tanstack/react-query';
 import { getCartProducts } from '../api/product/products';
 import Price from '../components/ui/Price';
-import { wonPrice } from '../util';
 
 export default function Cart() {
-  const { cartState } = useCartContext();
-
-  const { isLoading, data: cartItems } = useQuery(['cart'], () =>
-    getCartProducts()
-  );
+  const { data: cartItems } = useQuery(['cart'], () => getCartProducts());
   const total =
     cartItems &&
     Object.values(cartItems).reduce(
