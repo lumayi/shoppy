@@ -3,14 +3,12 @@ import { AiOutlineFileAdd } from 'react-icons/ai';
 import { login, logout } from '../api/login/auth';
 import { UserContext } from '../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCartContext } from '../context/CartContext';
 import CartStatus from './CartStatus';
 import User from './User';
 import Button from './ui/Button';
 
 export default function Header() {
   const { userState } = useContext(UserContext);
-  const { cartState } = useCartContext();
   const navigate = useNavigate();
 
   return (
@@ -34,10 +32,7 @@ export default function Header() {
           PRODUCTS
         </span>
         {userState.authenticated && (
-          <CartStatus
-            cartStatus={Object.keys(cartState).length}
-            onClick={() => navigate('/cart')}
-          />
+          <CartStatus onClick={() => navigate('/cart')} />
         )}
         {userState.user?.isAdmin && (
           <button type="button" onClick={() => navigate('/products/new')}>

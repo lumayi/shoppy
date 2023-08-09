@@ -4,6 +4,7 @@ import { useCartContext } from '../context/CartContext';
 import { wonPrice } from '../util';
 import Button from '../components/ui/Button';
 import { UserContext } from '../context/UserContext';
+import { updateCartProduct } from '../api/product/products';
 
 export default function Detail() {
   const {
@@ -19,7 +20,7 @@ export default function Detail() {
   const handleSubmit = () => {
     const cartItem = { ...product, quantity: 1, option };
     if (userState.user) {
-      dispatch({ type: 'UPDATE', payload: cartItem });
+      updateCartProduct(cartItem);
       if (
         window.confirm(
           '장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?'

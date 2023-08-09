@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
-import { useCartContext } from '../context/CartContext';
 import { wonPrice } from '../util';
 import { FaTrash } from 'react-icons/fa';
+import { deleteCartProduct, updateCartProduct } from '../api/product/products';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function CartItem({ item }) {
-  const { cartState, dispatch } = useCartContext();
-  const { quantity, price, imageUrl, option, title } = item;
-  const [quan, setQuan] = useState(quantity);
+  const { quantity, price, imageUrl, option, title, id } = item;
+  const queryClient = new useQueryClient();
+  const deleteProduct = useMutation(
+    (productId) => deleteCartProduct(productId),
+    { onSuccess: () => queryClient.invalidateQueries(['cart']) }
+  );
+  const addProduct = useMutation(
+    () => updateCartProduct({ ...item, quantity: quantity + 1 }),
+    { onSuccess: () => queryClient.invalidateQueries(['cart']) }
+  );
+  const minusProduct = useMutation(
+    () => updateCartProduct({ ...item, quantity: quantity - 1 }),
+    { onSuccess: () => queryClient.invalidateQueries(['cart']) }
+  );
   return (
     <div className="flex gap-4 justify-between items-center">
       <div className="flex gap-4">
@@ -26,33 +38,17 @@ export default function CartItem({ item }) {
             className="bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105"
             type="button"
             onClick={() => {
-              setQuan((prev) => {
-                if (prev <= 1)
-                  return dispatch({
-                    type: 'WITHDRAW',
-                    payload: { id: item },
-                  });
-                else return prev - 1;
-              });
-              dispatch({
-                type: 'UPDATE',
-                payload: { [item]: { quan, price, imageUrl, option, title } },
-              });
+              if (quantity < 2) return;
+              else return minusProduct.mutate();
             }}
           >
             -
           </button>
-          <span>{quan}</span>
+          <span>{quantity}</span>
           <button
             className="bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105"
             type="button"
-            onClick={() => {
-              setQuan((prev) => prev + 1);
-              dispatch({
-                type: 'UPDATE',
-                payload: { [item]: { quan, price, imageUrl, option, title } },
-              });
-            }}
+            onClick={addProduct.mutate}
           >
             +
           </button>
@@ -60,6 +56,7 @@ export default function CartItem({ item }) {
         <button
           type="button"
           className="text-xl text-gray-400 hover:text-black hover:scale-110"
+          onClick={() => deleteProduct.mutate(id)}
         >
           <FaTrash />
         </button>

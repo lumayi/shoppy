@@ -73,7 +73,10 @@ export function getCartProducts() {
     });
 }
 
-export function addCart(product) {
-  const cartId = uuidv4();
-  set(ref(db, `cart/${cartId}`), product).then((res) => console.log(res));
+export function updateCartProduct(product) {
+  set(ref(db, `cart/${product.id}`), product);
+}
+
+export function deleteCartProduct(productId) {
+  set(ref(db, `cart/${productId}`), null);
 }
