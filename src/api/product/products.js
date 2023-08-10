@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { getDatabase, ref, set, get, child } from 'firebase/database';
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  child,
+  push,
+  update,
+} from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
 const db = getDatabase();
 
@@ -59,8 +67,8 @@ export const getProducts = () => {
     });
 };
 
-export function getCartProducts() {
-  return get(child(dbRef, `cart/`))
+export function getCartProducts(uid) {
+  return get(child(dbRef, `cart/${uid}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
         return snapshot.val();
@@ -73,10 +81,12 @@ export function getCartProducts() {
     });
 }
 
-export function updateCartProduct(product) {
-  set(ref(db, `cart/${product.id}`), product);
+export function updateCartProduct({ uid, product }) {
+  const updates = {};
+  updates[`/cart/${uid}/${product.id}`] = product;
+  return update(ref(db), updates);
 }
 
-export function deleteCartProduct(productId) {
-  set(ref(db, `cart/${productId}`), null);
+export function deleteCartProduct({ uid, productId }) {
+  set(ref(db, `cart/${uid}/${productId}`), null);
 }

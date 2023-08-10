@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import CartItem from '../components/CartItem';
 import { useQuery } from '@tanstack/react-query';
 import { getCartProducts } from '../api/product/products';
 import Price from '../components/ui/Price';
+import { UserContext } from '../context/UserContext';
 
 export default function Cart() {
-  const { data: cartItems } = useQuery(['cart'], () => getCartProducts());
+  const {
+    userState: { user },
+  } = useContext(UserContext);
+  const { data: cartItems } = useQuery(['cart'], () =>
+    getCartProducts(user.uid)
+  );
   useEffect(() => {}, [cartItems]);
   const total =
     cartItems &&

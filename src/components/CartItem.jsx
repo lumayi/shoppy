@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { wonPrice } from '../util';
 import { FaTrash } from 'react-icons/fa';
 import { deleteCartProduct, updateCartProduct } from '../api/product/products';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UserContext } from '../context/UserContext';
 
 const buttonStyle =
   'bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105';
 export default function CartItem({ item }) {
+  const {
+    userState: {
+      user: { uid },
+    },
+  } = useContext(UserContext);
   const { quantity, price, imageUrl, option, title, id } = item;
   const queryClient = new useQueryClient();
   const deleteProduct = useMutation(
-    (productId) => deleteCartProduct(productId),
+    (productId) => deleteCartProduct({ uid, productId }),
     { onSuccess: () => queryClient.invalidateQueries(['cart']) }
   );
   const addProduct = useMutation(
-    () => updateCartProduct({ ...item, quantity: quantity + 1 }),
+    () =>
+      updateCartProduct({ uid, product: { ...item, quantity: quantity + 1 } }),
     { onSuccess: () => queryClient.invalidateQueries(['cart']) }
   );
   const minusProduct = useMutation(
-    () => updateCartProduct({ ...item, quantity: quantity - 1 }),
+    () =>
+      updateCartProduct({ uid, product: { ...item, quantity: quantity - 1 } }),
     { onSuccess: () => queryClient.invalidateQueries(['cart']) }
   );
   return (

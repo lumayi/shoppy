@@ -20,7 +20,7 @@ export default function Detail() {
   const handleSubmit = () => {
     const cartItem = { ...product, quantity: 1, option };
     if (userState.user) {
-      updateCartProduct(cartItem);
+      updateCartProduct({ uid: userState.user.uid, product: cartItem });
       if (
         window.confirm(
           '장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?'
