@@ -1,4 +1,3 @@
-import React from 'react';
 import { getProducts, registerProduct } from '../api/product/products';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

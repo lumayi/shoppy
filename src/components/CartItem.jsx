@@ -10,7 +10,7 @@ export default function CartItem({ item }) {
   const { deleteQuery } = useCart();
   const { updateQuery } = useCart();
   return (
-    <div className="flex gap-4 justify-between items-center">
+    <div className="flex gap-4 justify-between items-center border-2 p-4">
       <div className="flex gap-4">
         <img src={imageUrl} alt="productImage" className="w-44" />
         <div className="flex flex-col mt-2">
@@ -22,7 +22,7 @@ export default function CartItem({ item }) {
           <span>{wonPrice(price)}원</span>
         </div>
       </div>
-      <div className="flex gap-4 mr-4 items-center">
+      <div className="flex gap-4 mr-4 items-center relative">
         <div className="flex gap-2">
           <button
             className={buttonStyle}
@@ -45,7 +45,7 @@ export default function CartItem({ item }) {
         </div>
         <button
           type="button"
-          className="text-xl text-gray-400 hover:text-black hover:scale-110"
+          className="text-xl text-gray-400 hover:text-black hover:scale-110 absolute top-[-20]"
           onClick={() => deleteQuery.mutate(id)}
         >
           <FaTrash />

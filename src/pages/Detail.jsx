@@ -44,14 +44,14 @@ export default function Detail() {
             <span>원</span>
           </div>
           <span className="text-sm">{desc}</span>
-          <div className="flex items-center gap-2">
-            <label htmlFor="size-options" className="text-sm">
+          <div className="flex items-center gap-2 border-b border-gray-400 border-dashed">
+            <label htmlFor="size-options" className="text-sm mb-4">
               사이즈
             </label>
             <select
               name="options"
               id="size-options"
-              className="w-fit border rounded outline-none bg-transparent border-cyan-700 px-2 py-1"
+              className="w-fit border rounded outline-none bg-transparent border-cyan-700 px-2 py-1 mb-4"
               onChange={(e) => setOption(e.target.value)}
             >
               {options &&
@@ -62,11 +62,14 @@ export default function Detail() {
                 ))}
             </select>
           </div>
-          <Button
-            text="장바구니 담기"
-            className="bg-pink-500 text-white rounded px-2"
-            onClick={handleSubmit}
-          />
+          <Button text="장바구니 담기" onClick={handleSubmit} />
+          <button
+            className="bg-gray-600 text-white text-sm py-2 px-4 rounded font-bold hover:brightness-110 shrink-0"
+            onClick={() => alert('준비중입니다.')}
+            type="button"
+          >
+            지금 구매하기
+          </button>
         </div>
       </section>
     </>

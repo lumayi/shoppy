@@ -4,10 +4,10 @@ import { UserContext } from '../context/UserContext';
 
 export default function Auth() {
   const { userId, accessToken } = useParams();
-  const { userState, dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
   useEffect(() => {
     dispatch({ type: 'LOGIN', payload: { user: { userId, accessToken } } });
     window.close();
-  }, []);
+  }, [userId, accessToken, dispatch]);
   return <></>;
 }
