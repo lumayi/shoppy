@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { wonPrice } from '../util';
 import { FaTrash } from 'react-icons/fa';
-import { deleteCartProduct, updateCartProduct } from '../api/product/products';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserContext } from '../context/UserContext';
+import useCart from '../hooks/useCart';
 
 const buttonStyle =
   'bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105';
@@ -14,21 +13,8 @@ export default function CartItem({ item }) {
     },
   } = useContext(UserContext);
   const { quantity, price, imageUrl, option, title, id } = item;
-  const queryClient = new useQueryClient();
-  const deleteProduct = useMutation(
-    (productId) => deleteCartProduct({ uid, productId }),
-    { onSuccess: () => queryClient.invalidateQueries(['cart', uid]) }
-  );
-  const addProduct = useMutation(
-    () =>
-      updateCartProduct({ uid, product: { ...item, quantity: quantity + 1 } }),
-    { onSuccess: () => queryClient.invalidateQueries(['cart', uid]) }
-  );
-  const minusProduct = useMutation(
-    () =>
-      updateCartProduct({ uid, product: { ...item, quantity: quantity - 1 } }),
-    { onSuccess: () => queryClient.invalidateQueries(['cart', uid]) }
-  );
+  const { deleteQuery } = useCart({ uid });
+  const { updateQuery } = useCart({ uid });
   return (
     <div className="flex gap-4 justify-between items-center">
       <div className="flex gap-4">
@@ -49,7 +35,7 @@ export default function CartItem({ item }) {
             type="button"
             onClick={() => {
               if (quantity < 2) return;
-              else return minusProduct.mutate();
+              else return updateQuery.mutate({ type: 'minus', item });
             }}
           >
             -
@@ -58,7 +44,7 @@ export default function CartItem({ item }) {
           <button
             className={buttonStyle}
             type="button"
-            onClick={addProduct.mutate}
+            onClick={() => updateQuery.mutate({ type: 'add', item })}
           >
             +
           </button>
@@ -66,7 +52,7 @@ export default function CartItem({ item }) {
         <button
           type="button"
           className="text-xl text-gray-400 hover:text-black hover:scale-110"
-          onClick={() => deleteProduct.mutate(id)}
+          onClick={() => deleteQuery.mutate(id)}
         >
           <FaTrash />
         </button>

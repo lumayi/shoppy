@@ -1,16 +1,11 @@
 import React from 'react';
-import { getProducts } from '../api/product/products';
-import { useQuery } from '@tanstack/react-query';
 import ProductCard from '../components/ProductCard';
+import useProducts from '../hooks/useProducts';
 
 export default function Home() {
-  const { data: products } = useQuery(
-    ['products', 'home'],
-    () => getProducts('home'),
-    {
-      staleTime: 1000 * 60 * 60,
-    }
-  );
+  const {
+    homeProdsQuery: { data: products },
+  } = useProducts();
 
   return (
     <section className="flex flex-col gap-4">

@@ -5,8 +5,10 @@ import { UserContext } from '../context/UserContext';
 
 export default function CartStatus({ onClick }) {
   const { userState } = useContext(UserContext);
-  const { data } = useQuery(['cart', userState.user.uid], () =>
-    getCartProducts(userState.user.uid)
+  const { data } = useQuery(
+    ['cart', userState.user.uid],
+    () => getCartProducts(userState.user.uid),
+    { staleTime: 1000 * 60 * 60 }
   );
   return (
     <button type="button" className="relative" onClick={onClick}>

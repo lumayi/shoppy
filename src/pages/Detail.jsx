@@ -4,6 +4,7 @@ import { wonPrice } from '../util';
 import Button from '../components/ui/Button';
 import { UserContext } from '../context/UserContext';
 import { updateCartProduct } from '../api/product/products';
+import useCart from '../hooks/useCart';
 
 export default function Detail() {
   const {
@@ -14,11 +15,17 @@ export default function Detail() {
   } = useLocation();
   const [option, setOption] = useState(options && options[0]);
   const navigate = useNavigate();
-  const { userState } = useContext(UserContext);
+  const {
+    userState: {
+      user,
+      user: { uid },
+    },
+  } = useContext(UserContext);
+  const { addCartQuery } = useCart({ uid });
   const handleSubmit = () => {
     const cartItem = { ...product, quantity: 1, option };
-    if (userState.user) {
-      updateCartProduct({ uid: userState.user.uid, product: cartItem });
+    if (user) {
+      addCartQuery.mutate({ product: cartItem });
       if (
         window.confirm(
           '장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?'
