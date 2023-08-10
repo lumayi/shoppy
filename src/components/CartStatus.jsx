@@ -1,15 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
-import { getCartProducts } from '../api/product/products';
-import { UserContext } from '../context/UserContext';
+import React from 'react';
+import useCart from '../hooks/useCart';
 
 export default function CartStatus({ onClick }) {
-  const { userState } = useContext(UserContext);
-  const { data } = useQuery(
-    ['cart', userState.user.uid],
-    () => getCartProducts(userState.user.uid),
-    { staleTime: 1000 * 60 * 60 }
-  );
+  const {
+    cartQuery: { data },
+  } = useCart();
   return (
     <button type="button" className="relative" onClick={onClick}>
       <img src="image/cartImage.svg" alt="cart" className="w-6" />

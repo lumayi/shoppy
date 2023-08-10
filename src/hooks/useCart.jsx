@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   deleteCartProduct,
   getCartProducts,
   updateCartProduct,
 } from '../api/product/products';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { UserContext } from '../context/UserContext';
 
-export default function useCart({ uid }) {
+export default function useCart() {
+  const {
+    userState: {
+      user: { uid },
+    },
+  } = useContext(UserContext);
   const queryClient = new useQueryClient();
-  const cartQuery = useQuery(['cart', uid], () => getCartProducts(uid), {
+  const cartQuery = useQuery(['cart', uid || ''], () => getCartProducts(uid), {
     staleTime: 1000 * 60 * 60,
+    enabled: !!uid,
   });
   const addCartQuery = useMutation(
     ({ product }) => updateCartProduct({ uid, product }),

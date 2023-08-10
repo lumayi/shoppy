@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { wonPrice } from '../util';
 import Button from '../components/ui/Button';
 import { UserContext } from '../context/UserContext';
-import { updateCartProduct } from '../api/product/products';
 import useCart from '../hooks/useCart';
 
 export default function Detail() {
@@ -16,12 +15,9 @@ export default function Detail() {
   const [option, setOption] = useState(options && options[0]);
   const navigate = useNavigate();
   const {
-    userState: {
-      user,
-      user: { uid },
-    },
+    userState: { user },
   } = useContext(UserContext);
-  const { addCartQuery } = useCart({ uid });
+  const { addCartQuery } = useCart();
   const handleSubmit = () => {
     const cartItem = { ...product, quantity: 1, option };
     if (user) {

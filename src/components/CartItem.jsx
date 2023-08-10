@@ -1,20 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { wonPrice } from '../util';
 import { FaTrash } from 'react-icons/fa';
-import { UserContext } from '../context/UserContext';
 import useCart from '../hooks/useCart';
 
 const buttonStyle =
   'bg-gray-500 text-white w-6 h-6 flex justify-center items-center rounded hover:bg-black hover:scale-105';
 export default function CartItem({ item }) {
-  const {
-    userState: {
-      user: { uid },
-    },
-  } = useContext(UserContext);
   const { quantity, price, imageUrl, option, title, id } = item;
-  const { deleteQuery } = useCart({ uid });
-  const { updateQuery } = useCart({ uid });
+  const { deleteQuery } = useCart();
+  const { updateQuery } = useCart();
   return (
     <div className="flex gap-4 justify-between items-center">
       <div className="flex gap-4">
