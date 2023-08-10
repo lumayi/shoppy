@@ -9,7 +9,7 @@ export default function Cart() {
   const {
     userState: { user },
   } = useContext(UserContext);
-  const { data: cartItems } = useQuery(['cart'], () =>
+  const { data: cartItems } = useQuery(['cart', user.uid], () =>
     getCartProducts(user.uid)
   );
   useEffect(() => {}, [cartItems]);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { wonPrice } from '../util';
 import { FaTrash } from 'react-icons/fa';
 import { deleteCartProduct, updateCartProduct } from '../api/product/products';
@@ -17,17 +17,17 @@ export default function CartItem({ item }) {
   const queryClient = new useQueryClient();
   const deleteProduct = useMutation(
     (productId) => deleteCartProduct({ uid, productId }),
-    { onSuccess: () => queryClient.invalidateQueries(['cart']) }
+    { onSuccess: () => queryClient.invalidateQueries(['cart', uid]) }
   );
   const addProduct = useMutation(
     () =>
       updateCartProduct({ uid, product: { ...item, quantity: quantity + 1 } }),
-    { onSuccess: () => queryClient.invalidateQueries(['cart']) }
+    { onSuccess: () => queryClient.invalidateQueries(['cart', uid]) }
   );
   const minusProduct = useMutation(
     () =>
       updateCartProduct({ uid, product: { ...item, quantity: quantity - 1 } }),
-    { onSuccess: () => queryClient.invalidateQueries(['cart']) }
+    { onSuccess: () => queryClient.invalidateQueries(['cart', uid]) }
   );
   return (
     <div className="flex gap-4 justify-between items-center">

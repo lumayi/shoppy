@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { registerProduct, uploadImage } from '../api/product/products';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
@@ -14,19 +15,20 @@ export default function NewProduct() {
     }
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
+  const queryClient = new useQueryClient();
+  const addProduct = useMutation(
+    ({ secure_url, product }) =>
+      registerProduct({ ...product, imageUrl: secure_url }),
+    { onSuccess: () => queryClient.invalidateQueries(['products']) }
+  );
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingText('등록중입니다😊');
     try {
       const { secure_url } = await uploadImage(file);
-      await registerProduct({
-        title,
-        price,
-        desc,
-        gender,
-        options,
-        company,
-        imageUrl: secure_url,
+      await addProduct.mutate({
+        secure_url,
+        product: { title, price, desc, gender, options, company },
       });
     } catch (error) {
       console.log(error);

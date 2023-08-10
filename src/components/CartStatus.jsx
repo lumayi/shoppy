@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext';
 
 export default function CartStatus({ onClick }) {
   const { userState } = useContext(UserContext);
-  const { data } = useQuery(['cart'], () =>
+  const { data } = useQuery(['cart', userState.user.uid], () =>
     getCartProducts(userState.user.uid)
   );
   return (

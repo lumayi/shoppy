@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCartContext } from '../context/CartContext';
 import { wonPrice } from '../util';
 import Button from '../components/ui/Button';
 import { UserContext } from '../context/UserContext';
@@ -15,7 +14,6 @@ export default function Detail() {
   } = useLocation();
   const [option, setOption] = useState(options && options[0]);
   const navigate = useNavigate();
-  const { dispatch } = useCartContext();
   const { userState } = useContext(UserContext);
   const handleSubmit = () => {
     const cartItem = { ...product, quantity: 1, option };

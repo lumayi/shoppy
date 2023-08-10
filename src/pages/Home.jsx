@@ -4,9 +4,13 @@ import { useQuery } from '@tanstack/react-query';
 import ProductCard from '../components/ProductCard';
 
 export default function Home() {
-  const { data: products } = useQuery(['products'], () => getProducts(), {
-    staleTime: 1000 * 60 * 60,
-  });
+  const { data: products } = useQuery(
+    ['products', 'home'],
+    () => getProducts('home'),
+    {
+      staleTime: 1000 * 60 * 60,
+    }
+  );
 
   return (
     <section className="flex flex-col gap-4">

@@ -1,13 +1,5 @@
 import axios from 'axios';
-import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  child,
-  push,
-  update,
-} from 'firebase/database';
+import { getDatabase, ref, set, get, child, update } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
 const db = getDatabase();
 
@@ -26,29 +18,15 @@ export const uploadImage = (file) => {
     .catch((error) => console.log(error));
 };
 
-export const registerProduct = ({
-  imageUrl,
-  title,
-  desc,
-  price,
-  gender,
-  options,
-  company,
-}) => {
+export const registerProduct = (product) => {
   const productId = uuidv4();
   set(ref(db, 'products/' + productId), {
-    title,
-    desc,
-    price,
-    gender,
-    options,
-    imageUrl,
-    company,
+    ...product,
   });
 };
 
 const dbRef = ref(db);
-export const getProducts = () => {
+export const getProducts = (home) => {
   return get(child(dbRef, `products/`))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -57,6 +35,7 @@ export const getProducts = () => {
           id: value,
           ...data[value],
         }));
+        if (home) return items.splice(items.length - 12);
         return items;
       } else {
         console.log('No data available');
