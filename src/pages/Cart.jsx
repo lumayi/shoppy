@@ -7,8 +7,6 @@ export default function Cart() {
   const {
     cartQuery: { data: cartItems },
   } = useCart();
-
-  useEffect(() => {}, [cartItems]);
   const total =
     cartItems &&
     Object.values(cartItems).reduce(
@@ -17,10 +15,10 @@ export default function Cart() {
     );
   return (
     <>
-      <div>
+      <div className="min-h-[30rem]">
         <section className="flex flex-col gap-4 m-10 bg-stone-100 rounded-lg">
           <ul className="px-6 py-5 flex flex-col gap-4">
-            {!cartItems && '장바구니가 비어있어요🛒'}
+            {!Object.keys(cartItems).length && '장바구니가 비어있어요 🛒'}
             {cartItems &&
               Object.values(cartItems).map((item) => (
                 <li key={item.id}>
