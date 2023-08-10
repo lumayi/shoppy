@@ -25,20 +25,7 @@ export const login = () => {
   // window.open(
   //   'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google'
   // );
-  // fetch(
-  //   'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google',
-  //   { method: 'GET', credentials: 'include', redirect: 'follow' }
-  // ).catch((error) => console.log(error));
-  // axios
-  //   .post('https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app', {
-  //     withCredentials: true,
-  //     headers: {
-  //       Authorization:
-  //         'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjkxMzI3OTM0LCJleHAiOjE2OTEzMzUxMzR9.dXRkMJCcaXWDDAPAEVUVCZmEEgiIQV8Zsv7LWKe7zWj4fT3R6cFTzGYkNKJlD-3YG1y-lW4BG5aLkrPvMoiS4g',
-  //     },
-  //   })
-  //   .then((res) => console.log(res))
-  //   .catch((error) => console.log(error));
+
   signInWithPopup(auth, provider).catch(console.error);
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CartItem from '../components/CartItem';
 import Price from '../components/ui/Price';
 import useCart from '../hooks/useCart';
