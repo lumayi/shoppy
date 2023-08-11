@@ -7,7 +7,7 @@ const userReducer = (state, { type, payload }) => {
     case 'LOGIN':
       return { ...state, authenticated: true, user: payload };
     case 'LOGOUT':
-      return { ...state, authenticated: false, user: null };
+      return { ...state, authenticated: false, user: { uid: null } };
     case 'STOP_LOADING':
       return { ...state, isLoading: false };
     default:
@@ -19,7 +19,7 @@ export const UserContextProvider = ({ children }) => {
   const [userState, dispatch] = useReducer(userReducer, {
     isLoading: true,
     authenticated: false,
-    user: null,
+    user: { uid: null },
   });
   useState(() => {
     try {

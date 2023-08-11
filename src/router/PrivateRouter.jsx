@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 export default function PrivateRouter({ children, isAdmin }) {
   const { userState } = useContext(UserContext);
 
-  if (!userState.user || (!userState.user.isAdmin && isAdmin))
+  if (!userState.user.uid || (!userState.user.isAdmin && isAdmin))
     return <Navigate to={'/'} replace />;
   return children;
 }

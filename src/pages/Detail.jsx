@@ -20,7 +20,7 @@ export default function Detail() {
   const { addCartQuery } = useCart();
   const handleSubmit = () => {
     const cartItem = { ...product, quantity: 1, option };
-    if (user) {
+    if (user.uid) {
       addCartQuery.mutate({ product: cartItem });
       if (
         window.confirm(
