@@ -22,11 +22,11 @@ const auth = getAuth();
 const database = getDatabase(app);
 
 export const login = () => {
-  // window.open(
-  //   'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google'
-  // );
+  window.open(
+    'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google'
+  );
 
-  signInWithPopup(auth, provider).catch(console.error);
+  // signInWithPopup(auth, provider).catch(console.error);
 };
 
 export const logout = () => {
