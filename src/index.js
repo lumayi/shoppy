@@ -35,7 +35,7 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
-      { path: 'auth/:userId/:accessToken', element: <Auth /> },
+      { path: 'oauth2/redirect?', element: <Auth /> },
     ],
   },
 ]);

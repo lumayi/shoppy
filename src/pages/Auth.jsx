@@ -1,13 +1,15 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 export default function Auth() {
-  const { userId, accessToken } = useParams();
-  const { dispatch } = useContext(UserContext);
+  const [searchParams] = useSearchParams();
+  const accessToken = searchParams.get('accessToken');
+  const { userState, dispatch } = useContext(UserContext);
   useEffect(() => {
-    dispatch({ type: 'LOGIN', payload: { user: { userId, accessToken } } });
-    window.close();
-  }, [userId, accessToken, dispatch]);
-  return <></>;
+    dispatch({ type: 'LOGIN', payload: { uid: accessToken } });
+    // window.close();
+    console.log(accessToken);
+  }, [accessToken, dispatch]);
+  return <>{console.log(userState)}</>;
 }

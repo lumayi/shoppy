@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -22,11 +23,18 @@ const auth = getAuth();
 const database = getDatabase(app);
 
 export const login = () => {
-  window.open(
-    'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google'
-  );
+  // window.open(
+  //   ''
+  // );
+  //https://accounts.google.com/o/oauth2/v2/auth
+  //https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google
+  // axios
+  //   .get(
+  //     'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google'
+  //   )
+  //   .then((res) => console.log(res));
 
-  // signInWithPopup(auth, provider).catch(console.error);
+  signInWithPopup(auth, provider).catch(console.error);
 };
 
 export const logout = () => {
