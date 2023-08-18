@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 export default function Auth() {
