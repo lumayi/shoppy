@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -33,7 +32,6 @@ export const login = () => {
   //     'https://port-0-moa-spring-3prof2llkqnph83.sel4.cloudtype.app/oauth2/authorize/google'
   //   )
   //   .then((res) => console.log(res));
-
   signInWithPopup(auth, provider).catch(console.error);
 };
 
