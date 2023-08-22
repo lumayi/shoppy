@@ -1,14 +1,9 @@
 {
-    applinks: {
-        details: [
-            {
-                appIDs: ["X4XX2MGPMQ.com.runko.MoA"],
-                components: [
-               		{
-                	/: “*”
-                    }
-                ] 
-            }
-        ]
+    "applinks": {
+        "apps": [],
+        "details": [{
+            "appID": "X4XX2MGPMQ.com.runko.MoA",
+            "paths": ["*"]
+            }]
     }
 }
